@@ -1,0 +1,71 @@
+.img1 {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../assets/images/bg.jpg");
+  background-size: cover;
+  position: fixed;
+}
+
+.left-info {
+  width: 35vw;
+  margin-left: 15vw;
+  padding-right: 3vw;
+}
+
+.images {
+  width: 30vw;
+  height: auto;
+  position: relative;
+  margin-top: 23vh;
+  border-radius: 10px;
+}
+
+.right-info {
+  width: 35vw;
+  margin-right: 15vw;
+  padding-left: 3vw;
+}
+
+.title {
+  color: white;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-top: 20vh;
+  position: relative;
+  text-align: left;
+}
+
+.continue-button {
+  font-size: 4rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.trailsText {
+  position: relative;
+  width: 70vw;
+  height: 60px;
+  line-height: 60px;
+  color: black;
+  font-size: 3em;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  will-change: transform, opacity;
+  overflow: hidden;
+  margin-left: 15vw;
+  text-align: left;
+}
+
+.trailsText > div {
+  padding-right: 0.05em;
+  overflow: hidden;
+}
+
+.footer {
+  height: 10vh;
+  color: white;
+  background-color: #0e0c0c;
+  z-index: 10
+}

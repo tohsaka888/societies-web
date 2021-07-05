@@ -1,0 +1,27 @@
+.recent-title {
+  font-size: 2.2rem;
+  text-align: left;
+  padding: 2vh 0vw;
+  margin: 0 10vw;
+  /* width: 100vw; */
+  font-weight: bold;
+  border-bottom: 3px solid white;
+  position: relative;
+}
+
+.cards {
+  background-color: aliceblue;
+  position: relative;
+  margin: 5vh 10vw;
+  display: flex;
+  padding: 3vh 2vw;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px 5px rgb(65, 65, 65);
+}
+
+.image {
+  width: 20vw;
+  height: 20vh;
+  border-radius: 10px;
+  margin-right: 3vw;
+}

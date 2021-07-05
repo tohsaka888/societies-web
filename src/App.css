@@ -1,5 +1,9 @@
+@import '~antd/dist/antd.css';
 .App {
   text-align: center;
+  font-family: "Microsoft Yahei";
+  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .App-logo {

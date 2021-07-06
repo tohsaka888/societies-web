@@ -17,7 +17,7 @@ export default function HomePage(): JSX.Element {
           <Route exact path="/" component={HomePageContent} />
         </IsDisplayContext.Provider>
       </DisplayContext.Provider>
-      <Route exact path="/competition" component={Competition} />
+      <Route path="/competition" component={Competition} />
       <BackTop style={{zIndex: 100}}/>
       <Layout.Footer
         className="footer"

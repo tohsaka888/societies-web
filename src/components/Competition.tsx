@@ -12,7 +12,7 @@ import React from "react";
 import "./style/Competition.css";
 import web from "../assets/images/web.png";
 import {
-  LikeOutlined,
+  TrophyOutlined ,
   QqOutlined,
   CalendarOutlined,
   LaptopOutlined,
@@ -144,7 +144,7 @@ export default function Competition(): JSX.Element {
               </div>
             </div>
             <div className="page_title_2">比赛须知</div>
-            <div className="intro" style={{ padding: "2vh 2vw" }}>
+            <div className="intro" style={{ padding: "4vh 2vw" }}>
               <Row style={{ textAlign: "left" }}>
                 <Col span={8}>
                   <QqOutlined style={{ fontSize: "1.5rem" }} />
@@ -192,7 +192,7 @@ export default function Competition(): JSX.Element {
               <Row>
                 <Col span="6">
                   <div className="card">
-                    <LikeOutlined
+                    <TrophyOutlined 
                       style={{
                         fontSize: "4rem",
                         margin: "15% auto",
@@ -205,7 +205,7 @@ export default function Competition(): JSX.Element {
                 </Col>
                 <Col span="6">
                   <div className="card">
-                    <LikeOutlined
+                    <TrophyOutlined 
                       style={{
                         fontSize: "4rem",
                         margin: "15% auto",
@@ -218,7 +218,7 @@ export default function Competition(): JSX.Element {
                 </Col>
                 <Col span="6">
                   <div className="card">
-                    <LikeOutlined
+                    <TrophyOutlined 
                       style={{
                         fontSize: "4rem",
                         margin: "15% auto",
@@ -231,7 +231,7 @@ export default function Competition(): JSX.Element {
                 </Col>
                 <Col span="6">
                   <div className="card">
-                    <LikeOutlined
+                    <TrophyOutlined 
                       style={{ fontSize: "4rem", margin: "15% auto" }}
                     />
                     <div className="bonus">优秀奖</div>

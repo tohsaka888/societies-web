@@ -98,7 +98,6 @@ export default function Competition(): JSX.Element {
       <Route path="/competition/:id">
         <Layout style={{ marginLeft: "12vw" }}>
           <Layout.Content className="layout_content">
-            <div className="page_title">前端开发大赛</div>
             <div className="page_title_2">比赛介绍</div>
             <div style={{ display: "flex" }} className="intro">
               <div className="banner">
@@ -109,8 +108,9 @@ export default function Competition(): JSX.Element {
               </div>
               <div className="right_text">
                 <Typography>
+                  <Typography.Title level={3} >前端开发大赛</Typography.Title>
                   <Typography.Paragraph
-                    ellipsis={{ rows: 7, expandable: true }}
+                    ellipsis={{ rows: 5, expandable: true }}
                   >
                     这是一段介绍 这是一段介绍 这是一段介绍 这是一段介绍
                     这是一段介绍 这是一段介绍 这是一段介绍 这是一段介绍
@@ -189,7 +189,7 @@ export default function Competition(): JSX.Element {
             </div>
             <div className="page_title_2">奖项设置</div>
             <div className="intro">
-              <Row>
+              <Row style={{marginBottom: "4vh"}}>
                 <Col span="6">
                   <div className="card">
                     <TrophyOutlined 

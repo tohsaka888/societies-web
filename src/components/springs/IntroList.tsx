@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { useTrail, animated } from "react-spring";
+import { useTrail, animated, config } from "react-spring";
 import useScreenHeight from "../hook/useScreenHeight";
 import "../HomePageComponents/HomePage.css";
 

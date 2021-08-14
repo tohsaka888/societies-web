@@ -19,6 +19,7 @@ export default function HomePageHeader(): JSX.Element {
   const [scoreNum, setScoreNum] = useState<String>("");
   const [collage, setCollage] = useState<String>("");
   const [classId, setClassId] = useState<String>("");
+  const [loginUser, setLoginUser] = useState<string>("");
   console.log(document.cookie);
   function checkPhone(phone: string): boolean {
     var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
@@ -28,16 +29,21 @@ export default function HomePageHeader(): JSX.Element {
       return true;
     }
   }
+  const getLoginStatus = async () => {
+    const token = localStorage.getItem("token");
+    const data = await pushRequest("/login/status", { token: token });
+    if (data.username === undefined) {
+      setLoginUser("");
+    } else {
+      setLoginUser(data.username);
+    }
+  };
   useEffect(() => {
     const getHomePageActivity = async () => {
-      const data = await pushRequest("/CXY/homeActivity", {});
+      const data = await pushRequest("/getArticles", {});
       console.log(data);
     };
-    const getLoginStatus = async () => {
-      const data = await pushRequest("/CXY/login/state",{});
-      console.log(data)
-    }
-    getHomePageActivity();
+    // getHomePageActivity();
     getLoginStatus();
   }, []);
   const checkPasswordCorrect = useCallback(() => {
@@ -52,8 +58,8 @@ export default function HomePageHeader(): JSX.Element {
       message.warning("用户名和密码不得为空");
     } else {
       message.loading({ content: "登录中···", key: "login" });
-      const data = await pushRequest("/CXY/login", {
-        userName: userName,
+      const data = await pushRequest("/login", {
+        username: userName,
         password: password,
       });
       try {
@@ -61,16 +67,18 @@ export default function HomePageHeader(): JSX.Element {
           message.error("服务端响应错误");
         } else {
           setIsModalVisible(false);
-          if (data.code === 200) {
-            message.success({ content: "登录成功", key: "login" });
+          if (data.message === "登录成功") {
+            message.success({ content: data.message, key: "login" });
+            localStorage.setItem("token", data.token);
           } else {
-            message.error({ content: "帐号或密码错误", key: "login" });
+            message.error(data.errmsg);
           }
         }
       } catch (error) {
         console.log(error);
         message.error({ content: "服务端响应错误", key: "login" });
       }
+      getLoginStatus()
     }
   };
   const register = async () => {
@@ -86,26 +94,22 @@ export default function HomePageHeader(): JSX.Element {
       message.loading({ content: "注册中···", key: "register" });
       if (checkPasswordCorrect()) {
         if (checkPhone(phone)) {
-          const data = await pushRequest("/CXY/register", {
-            userName: registerUserName,
+          const data = await pushRequest("/register", {
+            username: registerUserName,
             password: registerPassword,
-            checkPwd: confirmPassword,
-            phoneNo: phone,
+            phone: phone,
             classId: classId, //班级
             college: collage, //学院
-            scoreNum: scoreNum, //学号
+            scoreNumber: scoreNum, //学号
           });
           try {
             if (data.code === undefined) {
-              message.error({ content: "服务端响应错误", key: "register" });
+              message.error("服务端响应错误");
             } else if (data.code === 200) {
               setIsRegisterVisible(false);
-              message.success({ content: "注册成功", key: "register" });
+              message.success({ content: data.message, key: "register" });
             } else {
-              message.warning({
-                content: data.msg,
-                key: "register",
-              });
+              message.warning({ content: data.errmsg, key: "register" });
             }
           } catch (error) {
             console.log(error);
@@ -134,7 +138,8 @@ export default function HomePageHeader(): JSX.Element {
             }}
           />
         </div>
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["index"]}>
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["index"]} style={{width: "50vw",justifyContent: 'flex-end'}}>
+        {loginUser && <Menu.Item key={loginUser} disabled>{loginUser}</Menu.Item>}
           <Menu.Item
             key="index"
             onClick={() => {
@@ -151,24 +156,29 @@ export default function HomePageHeader(): JSX.Element {
           >
             竞赛
           </Menu.Item>
-          <Menu.Item key="introduce">社团介绍</Menu.Item>
-          <Menu.Item
-            key="login"
-            onClick={() => {
-              setIsModalVisible(true);
-            }}
-          >
-            登录
-          </Menu.Item>
-          <Menu.Item
-            key="register"
-            onClick={() => {
-              setIsRegisterVisible(true);
-            }}
-          >
-            注册
-          </Menu.Item>
-          <Menu.Item key="contact">联系我们</Menu.Item>
+          <Menu.Item key="introduce" disabled>社团介绍</Menu.Item>
+          <Menu.Item key="contact" disabled>联系我们</Menu.Item>
+          {!loginUser && (
+            <>
+              <Menu.Item
+                key="login"
+                onClick={() => {
+                  setIsModalVisible(true);
+                }}
+              >
+                登录
+              </Menu.Item>
+              <Menu.Item
+                key="register"
+                onClick={() => {
+                  setIsRegisterVisible(true);
+                }}
+              >
+                注册
+              </Menu.Item>
+            </>
+          )}
+          {loginUser && <Menu.Item>退出登录</Menu.Item>}
         </Menu>
       </Header>
       <Modal

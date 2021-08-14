@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Col, Row, BackTop } from "antd";
+import { BackTop } from "antd";
 import HomePageContent from "./HomePageComponents/HomePageContent";
 import Header from "./Header";
 import { Route } from "react-router-dom";
@@ -19,7 +19,7 @@ export default function HomePage(): JSX.Element {
       </DisplayContext.Provider>
       <Route path="/competition" component={Competition} />
       <BackTop style={{zIndex: 100}}/>
-      <Layout.Footer
+      {/* <Layout.Footer
         className="footer"
         style={{ position: 'absolute',width: "100%",height: "15vh",padding: "5vh 0" }}
       >
@@ -33,7 +33,7 @@ export default function HomePage(): JSX.Element {
             <Col span="8" style={{color: "#1890FF"}}>19软二 孙典典&19软二 张天宇</Col>
             <Col span="8" style={{color: "#1890FF"}}>备案号：这是一个备案号</Col>
         </Row>
-      </Layout.Footer>
+      </Layout.Footer> */}
     </div>
   );
 }

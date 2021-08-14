@@ -1,4 +1,4 @@
-const baseUrl = `http://tohsaka888.xyz:4001`;
+const baseUrl = `http://localhost:9000`;
 
 export const pushRequest = async (api: String, pushedData: any) => {
   try {
@@ -6,10 +6,6 @@ export const pushRequest = async (api: String, pushedData: any) => {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(pushedData),
-      headers: new Headers({
-        "Content-Type": "application/json",
-      }),
-      credentials: "include", // 携带cookie跨域
     });
     const data = await res.json();
     return data;

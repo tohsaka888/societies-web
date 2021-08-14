@@ -4,16 +4,21 @@ import useScreenHeight from "../hook/useScreenHeight";
 import { DownCircleOutlined } from "@ant-design/icons";
 import "../HomePageComponents/HomePage.css";
 import cImg from "../../assets/images/c.jpg";
-import web from "../../assets/images/web.png"
-import computer from "../../assets/images/computer.png"
-import { Button, Carousel } from "antd";
+import web from "../../assets/images/web.png";
+import computer from "../../assets/images/computer.png";
+import { Button, Carousel, message } from "antd";
+import { Link } from "react-router-dom";
 
-export default function HomePageTitle(): JSX.Element {
+type Props = {
+  loginUser?: string;
+};
+
+export default function HomePageTitle({ loginUser }: Props): JSX.Element {
   const [title1, setTitle1] = useSpring(() => ({
     opacity: 0,
     textShadow: "0px 0px 0px white",
     zoom: 1,
-    paddingTop: "30px"
+    paddingTop: "30px",
   }));
   const [continueButton, setContinueButton] = useSpring(() => ({
     opacity: 0,
@@ -31,7 +36,7 @@ export default function HomePageTitle(): JSX.Element {
         opacity: 1,
         textShadow: "5px 10px 5px gray",
         paddingTop: "0px",
-        config: {duration: 600},
+        config: { duration: 600 },
         delay: 500,
       });
       setContinueButton.start({ opacity: 1, config: config.slow, delay: 600 });
@@ -41,7 +46,7 @@ export default function HomePageTitle(): JSX.Element {
       setContinueButton.start({ opacity: 0, config: config.slow });
       setBackgroundImg.start({
         opacity: 0.6,
-        config: {duration: 800},
+        config: { duration: 800 },
         delay: 500,
       });
     }
@@ -61,26 +66,50 @@ export default function HomePageTitle(): JSX.Element {
               setTitle1({ zoom: 1 });
             }}
           >
-            欢迎来到<span style={{ color: "skyblue" }} ref={title1Ref}>程序员之家</span>
+            欢迎来到
+            <span style={{ color: "skyblue" }} ref={title1Ref}>
+              程序员之家
+            </span>
             <div
               style={{
-                fontSize: "1.3rem",
+                fontSize: "1.7rem",
                 textAlign: "left",
                 marginTop: "3vh",
-                textShadow: "5px 5px 5px gray"
+                textShadow: "5px 5px 5px gray",
+                fontWeight: "normal",
               }}
             >
-              <div>[1] 常州工学院"五星社团"</div>
-              <div>
-                [2] 提供校园比赛平台，轻松拿奖状，顺利拿学时，活动丰富，奖励多多
-              </div>
-              <div>
-                [3] 技术人员众多，欢迎来社团群提问，给你提供最好的学习平台
-              </div>
-            </div>
-            <div>
-              <Button size="large" style={{marginRight: "2vw"}} shape="round">了解详情</Button>
-              <Button type="primary" size="large" shape="round">报名比赛</Button>
+              {loginUser === undefined && (
+                <div style={{marginBottom: "20px"}}>
+                  <div>
+                    程序员大舞台,有<span style={{ color: "aqua" }}>"手"</span>
+                    你就来!
+                  </div>
+                  <div>
+                    你知道吗?程序员之家的
+                    <span style={{ color: "aqua" }}>奖状</span>
+                    可以申请
+                    <span style={{ color: "aqua" }}>创新学分和学时</span>
+                  </div>
+                  <div>
+                    程序员之家是校内少有的
+                    <span style={{ color: "aqua" }}>五星级</span>社团
+                  </div>
+                </div>
+              )}
+              {loginUser && (
+                <div>
+                  呦呦呦,这不{loginUser}
+                  吗,又来参加比赛了?你参加比赛的样子真的好靓仔哦
+                </div>
+              )}
+              <Button size="large" style={{ marginRight: "2vw" }} shape="round">
+                了解详情
+              </Button>
+              <Button type="primary" size="large" shape="round">
+                {loginUser !== "" && <Link to="/signup">报名比赛</Link>}
+                {loginUser === "" && <div onClick={() => {message.warning("请先登录")}}>报名比赛</div>}
+              </Button>
             </div>
           </animated.div>
         </div>

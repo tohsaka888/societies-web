@@ -30,12 +30,16 @@ export default function HomePageHeader(): JSX.Element {
     }
   }
   const getLoginStatus = async () => {
-    const token = localStorage.getItem("token");
-    const data = await pushRequest("/login/status", { token: token });
-    if (data.username === undefined) {
-      setLoginUser("");
-    } else {
-      setLoginUser(data.username);
+    try {
+      const token = localStorage.getItem("token");
+      const data = await pushRequest("/login/status", { token: token });
+      if (data && data.username === undefined) {
+        setLoginUser(data.username);
+      } else {
+        setLoginUser("");
+      }
+    } catch (error) {
+      message.error(error.name + error.message)
     }
   };
   useEffect(() => {
@@ -78,7 +82,7 @@ export default function HomePageHeader(): JSX.Element {
         console.log(error);
         message.error({ content: "服务端响应错误", key: "login" });
       }
-      getLoginStatus()
+      getLoginStatus();
     }
   };
   const register = async () => {
@@ -138,8 +142,17 @@ export default function HomePageHeader(): JSX.Element {
             }}
           />
         </div>
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["index"]} style={{width: "50vw",justifyContent: 'flex-end'}}>
-        {loginUser && <Menu.Item key={loginUser} disabled>{loginUser}</Menu.Item>}
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={["index"]}
+          style={{ width: "50vw", justifyContent: "flex-end" }}
+        >
+          {loginUser !== "" && (
+            <Menu.Item key={loginUser} disabled>
+              {loginUser}
+            </Menu.Item>
+          )}
           <Menu.Item
             key="index"
             onClick={() => {
@@ -156,8 +169,12 @@ export default function HomePageHeader(): JSX.Element {
           >
             竞赛
           </Menu.Item>
-          <Menu.Item key="introduce" disabled>社团介绍</Menu.Item>
-          <Menu.Item key="contact" disabled>联系我们</Menu.Item>
+          <Menu.Item key="introduce" disabled>
+            社团介绍
+          </Menu.Item>
+          <Menu.Item key="contact" disabled>
+            联系我们
+          </Menu.Item>
           {!loginUser && (
             <>
               <Menu.Item

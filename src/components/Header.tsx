@@ -1,9 +1,10 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import { Affix, Layout, Menu, Modal, Form, Input, message } from "antd";
 import "./style/Header.css";
 import logo from "../assets/images/logo.png";
 import { useHistory } from "react-router-dom";
 import { pushRequest } from "./requests/request";
+import { LoginUserContext } from "./Context/context";
 
 export default function HomePageHeader(): JSX.Element {
   const { Header } = Layout;
@@ -19,8 +20,7 @@ export default function HomePageHeader(): JSX.Element {
   const [scoreNum, setScoreNum] = useState<String>("");
   const [collage, setCollage] = useState<String>("");
   const [classId, setClassId] = useState<String>("");
-  const [loginUser, setLoginUser] = useState<string>("");
-  console.log(document.cookie);
+  const {loginUser, setLoginUser} = useContext(LoginUserContext)
   function checkPhone(phone: string): boolean {
     var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
     if (!myreg.test(phone) || phone.length !== 11) {
@@ -29,11 +29,11 @@ export default function HomePageHeader(): JSX.Element {
       return true;
     }
   }
-  const getLoginStatus = async () => {
+  const getLoginStatus = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
       const data = await pushRequest("/login/status", { token: token });
-      if (data && data.username === undefined) {
+      if (data && data.username !== undefined) {
         setLoginUser(data.username);
       } else {
         setLoginUser("");
@@ -41,15 +41,10 @@ export default function HomePageHeader(): JSX.Element {
     } catch (error) {
       message.error(error.name + error.message)
     }
-  };
+  },[setLoginUser]);
   useEffect(() => {
-    const getHomePageActivity = async () => {
-      const data = await pushRequest("/getArticles", {});
-      console.log(data);
-    };
-    // getHomePageActivity();
     getLoginStatus();
-  }, []);
+  }, [getLoginStatus]);
   const checkPasswordCorrect = useCallback(() => {
     if (registerPassword.length >= 6 && registerPassword === confirmPassword) {
       return true;
@@ -129,6 +124,15 @@ export default function HomePageHeader(): JSX.Element {
       message.warning("信息没有填写完整");
     }
   };
+  const logout = async () => {
+    const token = localStorage.getItem("token")
+    const data = await pushRequest('/logout', {token: token})
+    if (data.code === 200) {
+      localStorage.removeItem("token");
+      getLoginStatus()
+      history.push('/')
+    }
+  }
   return (
     <Affix offsetTop={0}>
       <Header className="header">
@@ -161,14 +165,6 @@ export default function HomePageHeader(): JSX.Element {
           >
             主页
           </Menu.Item>
-          <Menu.Item
-            key="competiton"
-            onClick={() => {
-              history.push("/competition/1");
-            }}
-          >
-            竞赛
-          </Menu.Item>
           <Menu.Item key="introduce" disabled>
             社团介绍
           </Menu.Item>
@@ -195,7 +191,7 @@ export default function HomePageHeader(): JSX.Element {
               </Menu.Item>
             </>
           )}
-          {loginUser && <Menu.Item>退出登录</Menu.Item>}
+          {loginUser !== "" && <Menu.Item key={"logout"} onClick={logout}>退出登录</Menu.Item>}
         </Menu>
       </Header>
       <Modal

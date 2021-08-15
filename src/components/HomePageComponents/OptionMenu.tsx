@@ -7,7 +7,7 @@ import {
   ReadOutlined,
 } from "@ant-design/icons";
 import "./optionMenu.css";
-import { useSprings, animated } from "react-spring";
+import { useSprings, animated, config } from "react-spring";
 import useScreenHeight from "../hook/useScreenHeight";
 
 export default function OptionMenu(): JSX.Element {
@@ -46,6 +46,7 @@ export default function OptionMenu(): JSX.Element {
                     active === index
                       ? "0px 0px 3px 3px #1890ff"
                       : "0px 0px 0px 0px white",
+                  config: config.wobbly
                 }));
               }}
               onMouseLeave={() => {

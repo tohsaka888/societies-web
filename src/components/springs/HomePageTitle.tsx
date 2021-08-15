@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { useSpring, animated, config } from "react-spring";
 import useScreenHeight from "../hook/useScreenHeight";
 import { DownCircleOutlined } from "@ant-design/icons";
@@ -8,18 +8,16 @@ import web from "../../assets/images/web.png";
 import computer from "../../assets/images/computer.png";
 import { Button, Carousel, message } from "antd";
 import { Link } from "react-router-dom";
+import { LoginUserContext } from "../Context/context";
 
-type Props = {
-  loginUser?: string;
-};
-
-export default function HomePageTitle({ loginUser }: Props): JSX.Element {
+export default function HomePageTitle(): JSX.Element {
   const [title1, setTitle1] = useSpring(() => ({
     opacity: 0,
     textShadow: "0px 0px 0px white",
     zoom: 1,
     paddingTop: "30px",
   }));
+  const {loginUser} = useContext(LoginUserContext)
   const [continueButton, setContinueButton] = useSpring(() => ({
     opacity: 0,
     paddingTop: "10vh",
@@ -79,7 +77,7 @@ export default function HomePageTitle({ loginUser }: Props): JSX.Element {
                 fontWeight: "normal",
               }}
             >
-              {loginUser === undefined && (
+              {loginUser === "" && (
                 <div style={{marginBottom: "20px"}}>
                   <div>
                     程序员大舞台,有<span style={{ color: "aqua" }}>"手"</span>
@@ -97,17 +95,18 @@ export default function HomePageTitle({ loginUser }: Props): JSX.Element {
                   </div>
                 </div>
               )}
-              {loginUser && (
-                <div>
+              {loginUser !== "" && (
+                <div style={{marginBottom: "20px"}}>
                   呦呦呦,这不{loginUser}
                   吗,又来参加比赛了?你参加比赛的样子真的好靓仔哦
+                  想不出来的骚话...想不出来的骚话...
                 </div>
               )}
               <Button size="large" style={{ marginRight: "2vw" }} shape="round">
                 了解详情
               </Button>
               <Button type="primary" size="large" shape="round">
-                {loginUser !== "" && <Link to="/signup">报名比赛</Link>}
+                {loginUser !== "" && <Link to="/competition">报名比赛</Link>}
                 {loginUser === "" && <div onClick={() => {message.warning("请先登录")}}>报名比赛</div>}
               </Button>
             </div>

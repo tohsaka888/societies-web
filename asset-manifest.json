@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/societies-web/static/css/main.dd69f53b.chunk.css",
+    "main.js": "/societies-web/static/js/main.b8a210f2.chunk.js",
+    "main.js.map": "/societies-web/static/js/main.b8a210f2.chunk.js.map",
+    "runtime-main.js": "/societies-web/static/js/runtime-main.53f4bf97.js",
+    "runtime-main.js.map": "/societies-web/static/js/runtime-main.53f4bf97.js.map",
+    "static/css/2.10bc9b17.chunk.css": "/societies-web/static/css/2.10bc9b17.chunk.css",
+    "static/js/2.dcc6a84b.chunk.js": "/societies-web/static/js/2.dcc6a84b.chunk.js",
+    "static/js/2.dcc6a84b.chunk.js.map": "/societies-web/static/js/2.dcc6a84b.chunk.js.map",
+    "static/js/3.ae0e4af8.chunk.js": "/societies-web/static/js/3.ae0e4af8.chunk.js",
+    "static/js/3.ae0e4af8.chunk.js.map": "/societies-web/static/js/3.ae0e4af8.chunk.js.map",
+    "index.html": "/societies-web/index.html",
+    "static/css/2.10bc9b17.chunk.css.map": "/societies-web/static/css/2.10bc9b17.chunk.css.map",
+    "static/css/main.dd69f53b.chunk.css.map": "/societies-web/static/css/main.dd69f53b.chunk.css.map",
+    "static/js/2.dcc6a84b.chunk.js.LICENSE.txt": "/societies-web/static/js/2.dcc6a84b.chunk.js.LICENSE.txt",
+    "static/media/HomePage.css": "/societies-web/static/media/bg.0cb37690.jpg",
+    "static/media/c.09c93a34.jpg": "/societies-web/static/media/c.09c93a34.jpg",
+    "static/media/logo.dc0f5be5.png": "/societies-web/static/media/logo.dc0f5be5.png",
+    "static/media/web.86bc3bbc.png": "/societies-web/static/media/web.86bc3bbc.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.53f4bf97.js",
+    "static/css/2.10bc9b17.chunk.css",
+    "static/js/2.dcc6a84b.chunk.js",
+    "static/css/main.dd69f53b.chunk.css",
+    "static/js/main.b8a210f2.chunk.js"
+  ]
+}

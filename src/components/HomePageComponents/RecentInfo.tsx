@@ -27,6 +27,18 @@ export default function RecentInfo(): JSX.Element {
     },
     []
   );
+  const getList = useCallback(() => {
+    pushRequest("/competitionList", {}).then(value => {
+      if (value && value.competitionList && value.competitionList.length !== 0) {
+        setCompetitionList(value.competitionList);
+      } else {
+        setCompetitionList([]);
+      }
+    })
+  },[])
+  useEffect(() => {
+    getList()
+  }, [getList])
   useEffect(() => {
     changeAnimate(
       height,
@@ -40,14 +52,7 @@ export default function RecentInfo(): JSX.Element {
       { transform: "translate3d(0,0,0)", delay: 600 },
       { transform: "translate3d(100%,0,0)" }
     );
-    pushRequest("/competitionList", {}).then(value => {
-      if (value.competitionList.length !== 0) {
-        setCompetitionList(value.competitionList);
-      } else {
-        setCompetitionList([]);
-      }
-    });
-  },[changeAnimate, height, setInfoTitle, setTrails, trailHeight]);
+  },[changeAnimate, getList, height, setInfoTitle, setTrails, trailHeight]);
   return (
     <div>
       <animated.div className="recent-title" style={infoTitle} ref={titleRef}>

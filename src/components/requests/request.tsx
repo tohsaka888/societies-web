@@ -1,4 +1,5 @@
-const baseUrl = `http://localhost:9000`;
+// const baseUrl = `http://localhost:9000`;
+const baseUrl = `http://tohsaka888.xyz:9000`
 
 export const pushRequest = async (api: String, pushedData: any) => {
   try {

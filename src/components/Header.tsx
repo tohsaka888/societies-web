@@ -1,5 +1,14 @@
 import React, { useState, useCallback, useEffect, useContext } from "react";
-import { Affix, Layout, Menu, Modal, Form, Input, message } from "antd";
+import {
+  Affix,
+  Layout,
+  Menu,
+  Modal,
+  Form,
+  Input,
+  message,
+  Typography,
+} from "antd";
 import "./style/Header.css";
 import logo from "../assets/images/logo.png";
 import { useHistory } from "react-router-dom";
@@ -20,7 +29,8 @@ export default function HomePageHeader(): JSX.Element {
   const [scoreNum, setScoreNum] = useState<String>("");
   const [collage, setCollage] = useState<String>("");
   const [classId, setClassId] = useState<String>("");
-  const {loginUser, setLoginUser} = useContext(LoginUserContext)
+  const [showIntro, setShowIntro] = useState<boolean>(false);
+  const { loginUser, setLoginUser } = useContext(LoginUserContext);
   function checkPhone(phone: string): boolean {
     var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
     if (!myreg.test(phone) || phone.length !== 11) {
@@ -39,9 +49,9 @@ export default function HomePageHeader(): JSX.Element {
         setLoginUser("");
       }
     } catch (error) {
-      message.error(error.name + error.message)
+      message.error(error.name + error.message);
     }
-  },[setLoginUser]);
+  }, [setLoginUser]);
   useEffect(() => {
     getLoginStatus();
   }, [getLoginStatus]);
@@ -125,14 +135,14 @@ export default function HomePageHeader(): JSX.Element {
     }
   };
   const logout = async () => {
-    const token = localStorage.getItem("token")
-    const data = await pushRequest('/logout', {token: token})
+    const token = localStorage.getItem("token");
+    const data = await pushRequest("/logout", { token: token });
     if (data.code === 200) {
       localStorage.removeItem("token");
-      getLoginStatus()
-      history.push('/')
+      getLoginStatus();
+      history.push("/");
     }
-  }
+  };
   return (
     <Affix offsetTop={0}>
       <Header className="header">
@@ -165,7 +175,12 @@ export default function HomePageHeader(): JSX.Element {
           >
             主页
           </Menu.Item>
-          <Menu.Item key="introduce" disabled>
+          <Menu.Item
+            key="introduce"
+            onClick={() => {
+              setShowIntro(true);
+            }}
+          >
             社团介绍
           </Menu.Item>
           <Menu.Item key="contact" disabled>
@@ -191,7 +206,11 @@ export default function HomePageHeader(): JSX.Element {
               </Menu.Item>
             </>
           )}
-          {loginUser !== "" && <Menu.Item key={"logout"} onClick={logout}>退出登录</Menu.Item>}
+          {loginUser !== "" && (
+            <Menu.Item key={"logout"} onClick={logout}>
+              退出登录
+            </Menu.Item>
+          )}
         </Menu>
       </Header>
       <Modal
@@ -289,6 +308,28 @@ export default function HomePageHeader(): JSX.Element {
             />
           </Form.Item>
         </Form>
+      </Modal>
+      <Modal
+        okText="已了解"
+        title="社团介绍"
+        cancelText="取消"
+        visible={showIntro}
+        width={700}
+        onCancel={() => {
+          setShowIntro(false);
+        }}
+        onOk={() => {
+          setShowIntro(false);
+        }}
+      >
+        <Typography.Title level={3}>
+          程序员之家
+        </Typography.Title>
+        <Typography.Paragraph style={{fontSize: "1rem"}}>
+          程序员之家是由社团联盟主管，位于计算机信息工程学院的程序员爱好者的家园。社团成员在严格遵守学校守则以及学习团委精神的基础上，为社团建设做出了不懈的努力。
+          计算机信息工程学院程序员之家社团成立于2006年，由会长及副会，下设秘书处、宣传部、公关
+          部、组织部（内设策划）、技术部，是一个以技术学习和交流为基础的优秀社团。社团连续多年被评为校优秀社团，目前为校五星级社团。
+        </Typography.Paragraph>
       </Modal>
       <Modal
         okText="登录"

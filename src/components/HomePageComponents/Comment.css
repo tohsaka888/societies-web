@@ -1,0 +1,9 @@
+.info-title {
+  text-align: left;
+  font-size: 2rem;
+  padding: 10px;
+  font-weight: bold;
+  margin-left: 9vw;
+  border-bottom: 1px solid white;
+  margin-bottom: 1vh;
+}

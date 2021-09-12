@@ -12,7 +12,7 @@ import {
 import "./style/Header.css";
 import logo from "../assets/images/logo.png";
 import { useHistory } from "react-router-dom";
-import { pushRequest } from "./requests/request";
+import { getWebsocketMessage, pushRequest, sendWebsocketRequest } from "./requests/request";
 import { LoginUserContext } from "./Context/context";
 
 export default function HomePageHeader(): JSX.Element {
@@ -54,6 +54,8 @@ export default function HomePageHeader(): JSX.Element {
   }, [setLoginUser]);
   useEffect(() => {
     getLoginStatus();
+    sendWebsocketRequest('hello')
+    getWebsocketMessage()
   }, [getLoginStatus]);
   const checkPasswordCorrect = useCallback(() => {
     if (registerPassword.length >= 6 && registerPassword === confirmPassword) {

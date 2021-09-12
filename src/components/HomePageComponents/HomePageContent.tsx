@@ -5,6 +5,7 @@ import { Layout } from "antd";
 import HomePageTitle from "../springs/HomePageTitle";
 import OptionMenu from "./OptionMenu";
 import RecentInfo from "./RecentInfo";
+import Comment from "./Comment";
 
 export default function HomePageContent() {
   // const title1Ref = useRef<HTMLDivElement>(null);
@@ -16,7 +17,8 @@ export default function HomePageContent() {
     <Layout.Content>
       <HomePageTitle />
       <OptionMenu />
-      <RecentInfo /> 
+      <RecentInfo />
+      <Comment />
     </Layout.Content>
   );
 }

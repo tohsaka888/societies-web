@@ -1,0 +1,22 @@
+.admin-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 2vh;
+}
+
+.admin-content {
+  width: 30vw;
+  margin-left: 8vw;
+  text-align: center;
+  margin-bottom: 2vh;
+  /* background-color: #f9f9f9; */
+}
+
+.admin {
+  background-color: #f9f9f9;
+  margin-left: 25vw;
+  margin-right: 25vw;
+  padding: 2vh 0;
+  margin-top: 10vh;
+  box-shadow: 20px 20px 60px #ced1d6,-20px -20px 60px #fff;
+}

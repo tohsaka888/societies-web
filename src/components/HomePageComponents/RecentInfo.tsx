@@ -9,14 +9,14 @@ export default function RecentInfo(): JSX.Element {
   const [infoTitle, setInfoTitle] = useSpring(() => ({
     opacity: 0,
   }));
-  const [trails, setTrails] = useTrail(3, () => ({
-    transform: "translate3d(100%,0,0)",
-  }));
   const titleRef = useRef<HTMLDivElement | null>(null);
   const trailRef = useRef<HTMLDivElement | null>(null);
   const height: Number = useScreenHeight(titleRef);
   const trailHeight: Number = useScreenHeight(trailRef);
   const [competitionList, setCompetitionList] = useState<any>([])
+  const [trails, setTrails] = useTrail(competitionList.length, () => ({
+    transform: "translate3d(100%,0,0)",
+  }));
   const changeAnimate = useCallback(
     (height: Number, setAnimate: any, fromStyle: any, toStyle: any) => {
       if (height !== -1) {
@@ -30,6 +30,7 @@ export default function RecentInfo(): JSX.Element {
   const getList = useCallback(() => {
     pushRequest("/competitionList", {}).then(value => {
       if (value && value.competitionList && value.competitionList.length !== 0) {
+        console.log(value.competitionList)
         setCompetitionList(value.competitionList);
       } else {
         setCompetitionList([]);

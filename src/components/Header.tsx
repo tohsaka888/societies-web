@@ -14,6 +14,7 @@ import logo from "../assets/images/logo.png";
 import { useHistory } from "react-router-dom";
 import { getWebsocketMessage, pushRequest, sendWebsocketRequest } from "./requests/request";
 import { LoginUserContext } from "./Context/context";
+import Notice from "./Notice";
 
 export default function HomePageHeader(): JSX.Element {
   const { Header } = Layout;
@@ -215,6 +216,7 @@ export default function HomePageHeader(): JSX.Element {
           )}
         </Menu>
       </Header>
+      <Notice />
       <Modal
         visible={isRegisterVisible}
         onCancel={() => {

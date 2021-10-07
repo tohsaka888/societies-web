@@ -1,6 +1,7 @@
 import { Layout, Menu, message } from 'antd'
 import React, { useEffect } from 'react'
 import { Route, useHistory } from 'react-router'
+import { Link } from 'react-router-dom'
 import AddManagement from './AddManagement'
 import EditManagement from './EditManagement'
 
@@ -12,15 +13,19 @@ export default function Management() {
       message.error('请先登录管理员账户')
       history.push('/')
     } else {
-      history.push('/management/add/1')
+      history.push('/management/add/competitionIndroduce')
     }
   }, [history])
   return (
     <Layout style={{height: "100vh"}}>
       <Layout.Sider>
         <Menu theme="dark" mode="vertical" defaultSelectedKeys={['1']}>
-          <Menu.Item key="1">新建比赛简介</Menu.Item>
-          <Menu.Item>新建比赛详情</Menu.Item>
+          <Menu.Item key="competitionIntroduce">
+            <Link to="/management/add/competitionIntroduce">新建比赛简介</Link>
+          </Menu.Item>
+          <Menu.Item key="competitionDetail">
+            <Link to="/management/add/competitionDetail">新建比赛详情</Link>
+          </Menu.Item>
           <Menu.Item>新建公告</Menu.Item>
           <Menu.Item>新建获奖名单</Menu.Item>
           <Menu.Item>新建图床</Menu.Item>
@@ -31,7 +36,7 @@ export default function Management() {
         </Menu>
       </Layout.Sider>
       <Route path="/management/add/:id">
-        <AddManagement title={'新增比赛'} />
+        <AddManagement />
       </Route>
       <Route path="/management/edit/:id" component={EditManagement} />
     </Layout>

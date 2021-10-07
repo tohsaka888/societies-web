@@ -12,7 +12,7 @@ import useScreenHeight from "../hook/useScreenHeight";
 
 export default function OptionMenu(): JSX.Element {
   const menuInfo = [
-    { title: "QQ交流群", text: 12345678 },
+    { title: "QQ交流群", text: 598547810 },
     { title: "报名比赛", text: "报名比赛入口" },
     { title: "了解程序员之家", text: "程序员之家什么社团" },
     { title: "加入程序员之家", text: "一起来为社团出分力" },

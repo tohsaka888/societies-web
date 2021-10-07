@@ -13,13 +13,13 @@ import "./style/Header.css";
 import logo from "../assets/images/logo.png";
 import { useHistory } from "react-router-dom";
 import { getWebsocketMessage, pushRequest, sendWebsocketRequest } from "./requests/request";
-import { LoginUserContext } from "./Context/context";
+import { LoginUserContext, RegisterContext } from "./Context/context";
 import Notice from "./Notice";
 
 export default function HomePageHeader(): JSX.Element {
   const { Header } = Layout;
   const history: any = useHistory();
-  const [isRegisterVisible, setIsRegisterVisible] = useState<boolean>(false);
+  // const [isRegisterVisible, setIsRegisterVisible] = useState<boolean>(false);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [userName, setUserName] = useState<String>("");
   const [password, setPassword] = useState<String>("");
@@ -32,6 +32,7 @@ export default function HomePageHeader(): JSX.Element {
   const [classId, setClassId] = useState<String>("");
   const [showIntro, setShowIntro] = useState<boolean>(false);
   const { loginUser, setLoginUser } = useContext(LoginUserContext);
+  const { isRegisterVisible, setIsRegisterVisible } = useContext(RegisterContext)
   function checkPhone(phone: string): boolean {
     var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
     if (!myreg.test(phone) || phone.length !== 11) {
@@ -83,7 +84,7 @@ export default function HomePageHeader(): JSX.Element {
             message.success({ content: data.message, key: "login" });
             localStorage.setItem("token", data.token);
           } else {
-            message.error(data.errmsg);
+            message.error({ content: data.message, key: "login"});
           }
         }
       } catch (error) {

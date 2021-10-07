@@ -1,5 +1,5 @@
-import { Button, Typography } from "antd";
-import React, { useEffect, useRef } from "react";
+import { Button, message, Typography } from "antd";
+import React, { useContext, useEffect, useRef } from "react";
 import {
   QqOutlined,
   SolutionOutlined,
@@ -9,6 +9,8 @@ import {
 import "./optionMenu.css";
 import { useSprings, animated, config } from "react-spring";
 import useScreenHeight from "../hook/useScreenHeight";
+import { LoginUserContext, RegisterContext } from "../Context/context";
+import { useHistory } from "react-router";
 
 export default function OptionMenu(): JSX.Element {
   const menuInfo = [
@@ -25,6 +27,12 @@ export default function OptionMenu(): JSX.Element {
   }));
   const cardRef = useRef<HTMLDivElement | null>(null);
   const height = useScreenHeight(cardRef);
+  const history = useHistory()
+  const {loginUser} = useContext(LoginUserContext)
+  const { setIsRegisterVisible } = useContext(RegisterContext)
+  // const showDetail = (index: number) => {
+
+  // }
   useEffect(() => {
     if (height !== -1) {
       setCardStyle.start({ opacity: 1, config: { duration: 1000 } });
@@ -36,6 +44,30 @@ export default function OptionMenu(): JSX.Element {
     <div className="option-menu">
       <div className="grid-display" ref={cardRef}>
         {cards.map((item: any, index: number) => {
+          const showDetail = () => {
+            switch (index) {
+              case 0:
+                
+                break;
+              case 1:
+                if (loginUser) {
+                  history.push('/competition')
+                } else {
+                  message.warning("请先登陆")
+                }
+                break;
+              case 2:
+                message.warning("暂不可用,开发中")
+                break;
+              default:
+                if (loginUser) {
+                  message.warning("已经加入啦,感谢支持")
+                } else {
+                  setIsRegisterVisible(true)
+                }
+                break;
+            }
+          }
           return (
             <div
               key={index}
@@ -79,7 +111,7 @@ export default function OptionMenu(): JSX.Element {
                   >
                     {menuInfo[index].text}
                   </Typography.Text>
-                  <Button className="detail-button" type="primary">
+                  <Button className="detail-button" type="primary" onClick={showDetail}>
                     点击了解详情
                   </Button>
                 </Typography>

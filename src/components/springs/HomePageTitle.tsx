@@ -17,7 +17,7 @@ export default function HomePageTitle(): JSX.Element {
     zoom: 1,
     paddingTop: "30px",
   }));
-  const {loginUser} = useContext(LoginUserContext)
+  const { loginUser } = useContext(LoginUserContext);
   const [continueButton, setContinueButton] = useSpring(() => ({
     opacity: 0,
     paddingTop: "10vh",
@@ -28,6 +28,9 @@ export default function HomePageTitle(): JSX.Element {
   const [backgroundImg, setBackgroundImg] = useSpring(() => ({ opacity: 1 }));
   const title1Ref = useRef<HTMLDivElement>(null);
   const height: Number = useScreenHeight(title1Ref);
+  const showDetail = () => {
+    message.warning("暂不可用,开发中");
+  };
   useEffect(() => {
     if (height !== -1) {
       setTitle1.start({
@@ -70,7 +73,7 @@ export default function HomePageTitle(): JSX.Element {
             </span>
             <div
               style={{
-                fontSize: "1.7rem",
+                fontSize: "1.35rem",
                 textAlign: "left",
                 marginTop: "3vh",
                 textShadow: "5px 5px 5px gray",
@@ -78,7 +81,7 @@ export default function HomePageTitle(): JSX.Element {
               }}
             >
               {loginUser === "" && (
-                <div style={{marginBottom: "20px"}}>
+                <div style={{ marginBottom: "20px" }}>
                   <div>
                     程序员大舞台,有<span style={{ color: "aqua" }}>"手"</span>
                     你就来!
@@ -88,26 +91,43 @@ export default function HomePageTitle(): JSX.Element {
                     <span style={{ color: "aqua" }}>奖状</span>
                     可以申请
                     <span style={{ color: "aqua" }}>创新学分和学时</span>
+                    助力获得奖学金
                   </div>
                   <div>
-                    程序员之家是校内少有的
-                    <span style={{ color: "aqua" }}>五星级</span>社团
+                    校<span style={{ color: "aqua" }}>五星级</span>社团
+                    程序员之家，欢迎每位同学的到来！
                   </div>
                 </div>
               )}
               {loginUser !== "" && (
-                <div style={{marginBottom: "20px"}}>
-                  呦呦呦,这不{loginUser}
-                  吗,又来参加比赛了?你参加比赛的样子真的好靓仔哦
-                  想不出来的骚话...想不出来的骚话...
+                <div style={{ marginBottom: "20px" }}>
+                  欢迎回来<span style={{ color: "aqua" }}>{loginUser}</span>
+                  ,又来参加比赛了?
+                  <div>你认真学习的样子真的很靓哦。</div>
+                  <div>
+                    希望你在赛场上超常发挥，夺得佳绩。有志者事竟成。将来的你会感谢现在努力的自己，加油！
+                  </div>
                 </div>
               )}
-              <Button size="large" style={{ marginRight: "2vw" }} shape="round">
+              <Button
+                size="large"
+                style={{ marginRight: "2vw" }}
+                shape="round"
+                onClick={showDetail}
+              >
                 了解详情
               </Button>
               <Button type="primary" size="large" shape="round">
                 {loginUser !== "" && <Link to="/competition">报名比赛</Link>}
-                {loginUser === "" && <div onClick={() => {message.warning("请先登录")}}>报名比赛</div>}
+                {loginUser === "" && (
+                  <div
+                    onClick={() => {
+                      message.warning("请先登录");
+                    }}
+                  >
+                    报名比赛
+                  </div>
+                )}
               </Button>
             </div>
           </animated.div>

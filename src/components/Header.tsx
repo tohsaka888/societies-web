@@ -31,7 +31,7 @@ export default function HomePageHeader(): JSX.Element {
   const [collage, setCollage] = useState<String>("");
   const [classId, setClassId] = useState<String>("");
   const [showIntro, setShowIntro] = useState<boolean>(false);
-  const { loginUser, setLoginUser } = useContext(LoginUserContext);
+  const { loginUser, setLoginUser, setUserId } = useContext(LoginUserContext);
   const { isRegisterVisible, setIsRegisterVisible } = useContext(RegisterContext)
   function checkPhone(phone: string): boolean {
     var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
@@ -47,13 +47,14 @@ export default function HomePageHeader(): JSX.Element {
       const data = await pushRequest("/login/status", { token: token });
       if (data && data.username !== undefined) {
         setLoginUser(data.username);
+        setUserId(data.userId)
       } else {
         setLoginUser("");
       }
     } catch (error) {
       message.error(error.name + error.message);
     }
-  }, [setLoginUser]);
+  }, [setLoginUser, setUserId]);
   useEffect(() => {
     getLoginStatus();
     sendWebsocketRequest('hello')

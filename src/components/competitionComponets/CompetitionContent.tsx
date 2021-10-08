@@ -85,15 +85,15 @@ export default function CompetitionContent() {
   const { id } = useParams<{ id: string }>();
   const [page, setPage] = useState<any>({});
   const [visible, setVisible] = useState<boolean>(false);
-  const [spin, setSpin] = useState<boolean>(true)
-  const { loginUser } = useContext(LoginUserContext);
+  const [spin, setSpin] = useState<boolean>(true);
+  const { loginUser, userId } = useContext(LoginUserContext);
   const history = useHistory();
   useEffect(() => {
-    document.body.scrollTop = document.documentElement.scrollTop = 0
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
     pushRequest("/pages", { id: id }).then((value) => {
       setPage(value.pageList[0]);
     });
-    setSpin(false)
+    setSpin(false);
   }, [id]);
   const signUp = async () => {
     pushRequest("/isSignUp", { username: loginUser, id: id }).then((value) => {
@@ -101,17 +101,19 @@ export default function CompetitionContent() {
         message.warning("已经参加比赛,感谢支持!");
         setVisible(false);
       } else {
-        pushRequest("/signUpCompetition", { username: loginUser, id: id }).then(
-          (value) => {
-            if (value.message === "报名成功") {
-              message.success(value.message);
-              setVisible(false);
-            } else {
-              message.error(value.message);
-              setVisible(false);
-            }
+        pushRequest("/signUpCompetition", {
+          username: loginUser,
+          id: id,
+          userId: userId,
+        }).then((value) => {
+          if (value.message === "报名成功") {
+            message.success(value.message);
+            setVisible(false);
+          } else {
+            message.error(value.message);
+            setVisible(false);
           }
-        );
+        });
       }
     });
   };

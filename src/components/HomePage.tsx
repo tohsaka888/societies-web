@@ -13,6 +13,7 @@ export default function HomePage(): JSX.Element {
   const [display, setDisplay] = useState<Boolean>(false);
   const [loginUser, setLoginUser] = useState<string>("");
   const [isRegisterVisible, setIsRegisterVisible] = useState<boolean>(false);
+  const [userId, setUserId] = useState<string>("");
   return (
     <RegisterContext.Provider
       value={{
@@ -21,7 +22,12 @@ export default function HomePage(): JSX.Element {
       }}
     >
       <LoginUserContext.Provider
-        value={{ loginUser: loginUser, setLoginUser: setLoginUser }}
+        value={{
+          loginUser: loginUser,
+          setLoginUser: setLoginUser,
+          userId: userId,
+          setUserId: setUserId,
+        }}
       >
         <Header />
         <DisplayContext.Provider value={setDisplay}>
